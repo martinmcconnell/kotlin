@@ -1,9 +1,19 @@
-package org.setu.placemark
+package org.setu.placemark.console.main
 
 import mu.KotlinLogging
 
 private val logger= KotlinLogging.logger {}
 
+fun addPlacemark() {
+
+}
+fun updatePlacemark() {
+
+}
+
+fun listAllPlacemarks() {
+
+}
 fun menu() : Int {
 
     var option : Int
@@ -11,6 +21,8 @@ fun menu() : Int {
 
     println("Main Menu")
     println(" 1. Add Placemark")
+    println(" 2. Update Placemark")
+    println(" 3. List All Placemarks")
     println("-1. Exit")
     println()
     print("Enter an integer : ")
@@ -29,8 +41,10 @@ fun main(args: Array<String>){
     do {
         input = menu()
         when(input) {
-            1 -> println("You Chose Add Placemark")
-            -1 -> println("Exiting App")
+            1 -> addPlacemark()
+            2 -> updatePlacemark()
+            3 -> listAllPlacemarks()
+            -1 -> println("Exiting....")
             else -> println("Invalid Option")
         }
         println()
