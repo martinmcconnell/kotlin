@@ -1,18 +1,51 @@
 package org.setu.placemark.console.main
 
+import com.github.ajalt.mordant.rendering.BorderType.Companion.SQUARE_DOUBLE_SECTION_SEPARATOR
+import com.github.ajalt.mordant.rendering.TextAlign
+import com.github.ajalt.mordant.table.table
+import com.github.ajalt.mordant.terminal.Terminal
 import mu.KotlinLogging
 import org.setu.placemark.console.models.PlacemarkModel
 
-private val logger= KotlinLogging.logger {}
+
+private val logger = KotlinLogging.logger {}
+val t = Terminal()
 var placemark = PlacemarkModel()
+
+fun inputBox() :Int {
+    var option : Int
+    var input: String? = null
+    println("Enter an Integer : ")
+    input = readLine()!!
+    option = if (input.toIntOrNull() != null && !input.isEmpty()) input.toInt()
+    else
+        -9
+    return option
+}
+
+fun menu() {
+    val table = table{
+        borderType = SQUARE_DOUBLE_SECTION_SEPARATOR
+        header {
+            align = TextAlign.CENTER
+            row("MAIN MENU")
+        }
+        body {
+            row("1. Add Placemark")
+            row("2. Update Placemark")
+            row("3. List all placemarks")
+            row("-1 Exit\n")
+        }
+    }
+    t.println(table)
+}
+
 fun addPlacemark() {
     println("Add Placemark")
     println()
     print("Enter a Title : ")
     placemark.title = readLine()!!
-    print("Enter a Description : ")
-    placemark.description = readLine()!!
-    println("You entered [ $placemark.title ] for title and [ $placemark.description ] for description")
+    println("You entered $placemark.title for title")
 }
 
 fun updatePlacemark() {
@@ -25,43 +58,27 @@ fun updatePlacemark() {
     println("You updated [ $placemark.title ] for title and [ $placemark.description ] for description")
 }
 
-fun listAllPlacemarks() {
-    println("You Chose List All Placemarks")
+fun listAllPlaceMarks() {
+    println("Listing all placemarks")
 }
-fun menu() : Int {
 
-    var option : Int
-    var input: String? = null
-
-    println("Main Menu")
-    println(" 1. Add Placemark")
-    println(" 2. Update Placemark")
-    println(" 3. List All Placemarks")
-    println("-1. Exit")
-    println()
-    print("Enter an integer : ")
-    input = readLine()!!
-    option = if (input.toIntOrNull() != null && !input.isEmpty())
-        input.toInt()
-    else
-        -9
-    return option
-}
 fun main(args: Array<String>){
-    logger.info { "Launching Placemark Console App" }
-    println("Placemark Kotlin App Version 1.0")
-
+    logger.info {"Launching Placemark Console App Version 2.1"}
+    t.println(table {
+        body { row("Author: ^ ランナー▟ Martin McConnell \uD83D\uDE80 " )}
+    })
     var input: Int
     do {
-        input = menu()
+        menu()
+        input = inputBox()
         when(input) {
             1 -> addPlacemark()
             2 -> updatePlacemark()
-            3 -> listAllPlacemarks()
+            3 -> listAllPlaceMarks()
             -1 -> println("Exiting....")
-            else -> println("Invalid Option")
+            else -> println("Invalid option, reloading menu")
         }
         println()
     } while (input != -1)
-    logger.info { "Shutting Down Placemark Console App" }
+    logger.info { "Shutting Down App" }
 }
