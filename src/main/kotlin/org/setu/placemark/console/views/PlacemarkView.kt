@@ -7,7 +7,7 @@ import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.table.table
 import com.github.ajalt.mordant.terminal.Terminal
 import com.github.ajalt.mordant.widgets.Spinner
-import org.setu.placemark.console.models.PlacemarkMemStore
+import org.setu.placemark.console.models.PlacemarkJSONStore
 import org.setu.placemark.console.models.PlacemarkModel
 
 
@@ -87,7 +87,7 @@ class PlacemarkView {
         return false
     }
 
-    fun listPlacemarks(placemarks: PlacemarkMemStore) {
+    fun listPlacemarks(placemarks: PlacemarkJSONStore) {
         t.println(table {
             borderType = BorderType.SQUARE_DOUBLE_SECTION_SEPARATOR
             header {

@@ -16,6 +16,8 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.7.36")
     implementation ("io.github.microutils:kotlin-logging:2.1.23")
     implementation("com.github.ajalt.mordant:mordant:2.0.0-beta7")
+
+    implementation("com.google.code.gson:gson:2.9.0")
 }
 
 tasks.test {
