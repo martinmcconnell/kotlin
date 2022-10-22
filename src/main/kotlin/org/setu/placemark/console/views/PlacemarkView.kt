@@ -4,6 +4,7 @@ import com.github.ajalt.mordant.animation.progressAnimation
 import com.github.ajalt.mordant.rendering.BorderType
 import com.github.ajalt.mordant.rendering.TextAlign
 import com.github.ajalt.mordant.rendering.TextColors
+import com.github.ajalt.mordant.table.Borders
 import com.github.ajalt.mordant.table.table
 import com.github.ajalt.mordant.terminal.Terminal
 import com.github.ajalt.mordant.widgets.Spinner
@@ -15,27 +16,28 @@ class PlacemarkView {
     val t = Terminal()
 
     fun inputBox() :Int {
-        var option : Int
-        var input: String? = null
-        t.println(table { body {row("Enter an Integer :     \t")}})
+        var option : Int = 0
+        val input = t.prompt("Enter an Integer ")
         // Read up on print formatting to get input into the row() box
-        input = readLine()!!
-        option = if (input.toIntOrNull() != null && !input.isEmpty()) input.toInt()
-        else
-            -9
+        if (input != null) {
+            option = if (input.toIntOrNull() != null && !input.isEmpty()) input.toInt()
+            else
+                -9
+        }
         return option
     }
 
     fun banner() {
         t.println(table {
             header { row("\n" +
-                    "████████╗███████╗░██████╗████████╗\n" +
-                    "╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝\n" +
-                    "░░░██║░░░█████╗░░╚█████╗░░░░██║░░░\n" +
-                    "░░░██║░░░██╔══╝░░░╚═══██╗░░░██║░░░\n" +
-                    "░░░██║░░░███████╗██████╔╝░░░██║░░░\n" +
-                    "░░░╚═╝░░░╚══════╝╚═════╝░░░░╚═╝░░░\n") }
-            body { row("Author: ^ ランナー▟ Martin McConnell \uD83D\uDE80 " )}
+                    "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n" +
+                    "▒     ▒   ▒▒▒▒   ▒▒▒▒▒   ▒   ▒▒▒▒▒▒   ▒▒▒▒\n" +
+                    "▓▓▓▓▓▓   ▓▓▓   ▓▓   ▓▓▓   ▓▓   ▓▓  ▓▓▓   ▓\n" +
+                    "▓▓▓▓   ▓▓▓▓   ▓▓▓▓   ▓▓   ▓▓   ▓         ▓\n" +
+                    "▓▓▓   ▓▓▓▓▓▓   ▓▓   ▓▓▓   ▓▓   ▓  ▓▓▓▓▓▓▓▓\n" +
+                    "█         ████   █████    ██   ███     ███\n" +
+                    "██████████████████████████████████████████\n")}
+            body { row("Author: Martin McConnell \uD83D\uDE80 " )}
             body { row("20088021@mail.wit.ie")}
         })
     }
@@ -43,16 +45,18 @@ class PlacemarkView {
     fun menu() {
         val table = table{
             borderType = BorderType.SQUARE_DOUBLE_SECTION_SEPARATOR
+
+            column(2){
+            }
             header {
                 align = TextAlign.CENTER
                 row("MAIN MENU")
             }
             body {
-                row("1. Add Placemark")
-                row("2. Update Placemark")
-                row("3. List all placemarks")
-                row("4. Hack The Planet!")
-                row("5. Show the banner again")
+                row("1. add","2. update")
+                row("3. delete","4. list all")
+                row("5. load !", "6. reader")
+                row("7. replay main menu","8. replay banner")
                 row("-1 Exit\n")
             }
         }
@@ -90,15 +94,18 @@ class PlacemarkView {
     fun listPlacemarks(placemarks: PlacemarkJSONStore) {
         t.println(table {
             borderType = BorderType.SQUARE_DOUBLE_SECTION_SEPARATOR
+            column(3) {
+                cellBorders = Borders.ALL
+            }
             header {
                 align = TextAlign.CENTER
-                row("Placemarks")
+                row("ID", "Title", "Description")
             }
             body {
-//                for (placemark in placemarks) {
-//                    row("${placemark.id}. ${placemark.title}")
-                placemarks.logAll()
+                for (placemark in placemarks.placemarks) {
+                    row("${placemark.id}", "${placemark.title}"," ${placemark.description}")
                 }
+            }
         })
     }
 

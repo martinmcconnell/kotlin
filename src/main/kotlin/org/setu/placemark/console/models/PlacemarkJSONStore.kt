@@ -28,6 +28,7 @@ class PlacemarkJSONStore : PlacemarkStore {
         }
     }
 
+
     override fun findAll(): MutableList<PlacemarkModel> {
         return placemarks
     }
@@ -49,6 +50,11 @@ class PlacemarkJSONStore : PlacemarkStore {
             foundPlacemark.title = placemark.title
             foundPlacemark.description = placemark.description
         }
+        serialize()
+    }
+
+    override fun delete(placemark: PlacemarkModel) {
+        placemarks.remove(placemark)
         serialize()
     }
 

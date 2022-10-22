@@ -24,17 +24,20 @@ class PlacemarkController {
     fun banner() {return placemarkView.banner()}
 
     fun start() {
+        banner()
         var input: Int
-
+        menu()
         do {
-            menu()
             input = input()
             when(input) {
                 1 -> add()
                 2 -> update()
-                3 -> list()
-                4 -> load()
-                5 -> banner()
+                3 -> delete()
+                4 -> list()
+                5 -> load()
+                // 6 -> reader()
+                7 -> menu()
+                8 -> banner()
                 -1 -> println("Exiting....")
                 else -> println("Invalid Option")
             }
@@ -72,6 +75,20 @@ class PlacemarkController {
         }
         else
             println("Placemark Not Updated...")
+    }
+
+    fun delete() {
+        placemarkView.listPlacemarks(placemarks)
+        var searchId = placemarkView.getId()
+        val aPlacemark = search(searchId)
+
+        if(aPlacemark != null) {
+            placemarks.delete(aPlacemark)
+            println("Placemark Deleted...")
+            placemarkView.listPlacemarks(placemarks)
+        }
+        else
+            println("Placemark Not Deleted...")
     }
 
     fun search() {

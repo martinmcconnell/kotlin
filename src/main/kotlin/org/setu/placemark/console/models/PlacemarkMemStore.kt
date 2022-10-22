@@ -27,13 +27,16 @@ class PlacemarkMemStore : PlacemarkStore {
         logAll()
     }
 
-
     override fun update(placemark: PlacemarkModel) {
         var foundPlacemark = findOne(placemark.id!!)
         if (foundPlacemark != null) {
             foundPlacemark.title = placemark.title
             foundPlacemark.description = placemark.description
         }
+    }
+
+    override fun delete(placemark: PlacemarkModel) {
+        placemarks.remove(placemark)
     }
 
     internal fun logAll() {
