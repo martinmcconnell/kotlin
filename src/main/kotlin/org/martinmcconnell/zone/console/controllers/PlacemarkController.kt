@@ -1,10 +1,10 @@
-package org.setu.zone.console.controllers
+package org.martinmcconnell.zone.console.controllers
 
 import mu.KotlinLogging
-import org.setu.zone.console.models.PlacemarkJSONStore
-import org.setu.zone.console.models.PlacemarkMemStore
-import org.setu.zone.console.models.PlacemarkModel
-import org.setu.zone.console.views.PlacemarkView
+import org.martinmcconnell.zone.console.models.PlacemarkJSONStore
+import org.martinmcconnell.zone.console.models.PlacemarkMemStore
+import org.martinmcconnell.zone.console.models.PlacemarkModel
+import org.martinmcconnell.zone.console.views.PlacemarkView
 
 class PlacemarkController {
     val placemarks = PlacemarkJSONStore()
@@ -19,7 +19,10 @@ class PlacemarkController {
     fun menu() { return placemarkView.menu() }
 
     fun input() :Int {return placemarkView.inputBox()}
+
     fun load() {return placemarkView.hackingThePlanet()}
+
+    fun reader() { return placemarkView.reader()}
 
     fun banner() {return placemarkView.banner()}
 
@@ -35,7 +38,7 @@ class PlacemarkController {
                 3 -> delete()
                 4 -> list()
                 5 -> load()
-                // 6 -> reader()
+                6 -> reader()
                 7 -> menu()
                 8 -> banner()
                 -1 -> println("Exiting....")

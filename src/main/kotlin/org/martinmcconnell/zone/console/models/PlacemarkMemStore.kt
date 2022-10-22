@@ -1,4 +1,4 @@
-package org.setu.zone.console.models
+package org.martinmcconnell.zone.console.models
 
 import mu.KotlinLogging
 

@@ -1,4 +1,4 @@
-package org.setu.zone.console.models
+package org.martinmcconnell.zone.console.models
 
 interface PlacemarkStore {
     fun findAll(): List<PlacemarkModel>

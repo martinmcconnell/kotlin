@@ -1,4 +1,4 @@
-package org.setu.zone.console.helpers
+package org.martinmcconnell.zone.console.helpers
 
 import mu.KotlinLogging
 import java.io.*

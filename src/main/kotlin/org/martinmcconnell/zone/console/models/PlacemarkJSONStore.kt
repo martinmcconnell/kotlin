@@ -1,4 +1,4 @@
-package org.setu.zone.console.models
+package org.martinmcconnell.zone.console.models
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -6,9 +6,9 @@ import com.google.gson.reflect.TypeToken
 import mu.KotlinLogging
 
 import org.setu.zone.console.helpers.*
-import org.setu.zone.console.helpers.exists
-import org.setu.zone.console.helpers.read
-import org.setu.zone.console.helpers.write
+import org.martinmcconnell.zone.console.helpers.exists
+import org.martinmcconnell.zone.console.helpers.read
+import org.martinmcconnell.zone.console.helpers.write
 import java.util.*
 
 private val logger = KotlinLogging.logger {}

@@ -1,4 +1,4 @@
-package org.setu.zone.console.views
+package org.martinmcconnell.zone.console.views
 
 import com.github.ajalt.mordant.animation.progressAnimation
 import com.github.ajalt.mordant.rendering.BorderType
@@ -8,8 +8,9 @@ import com.github.ajalt.mordant.table.Borders
 import com.github.ajalt.mordant.table.table
 import com.github.ajalt.mordant.terminal.Terminal
 import com.github.ajalt.mordant.widgets.Spinner
-import org.setu.zone.console.models.PlacemarkJSONStore
-import org.setu.zone.console.models.PlacemarkModel
+import org.martinmcconnell.zone.console.models.PlacemarkJSONStore
+import org.martinmcconnell.zone.console.models.PlacemarkModel
+import java.io.File
 
 
 class PlacemarkView {
@@ -53,14 +54,16 @@ class PlacemarkView {
                 row("MAIN MENU")
             }
             body {
-                row("1. add","2. update")
-                row("3. delete","4. list all")
-                row("5. load !", "6. reader")
-                row("7. replay main menu","8. replay banner")
+                row("1. add","2. update","3. delete","4. list all")
+                row("5. load !", "6. reader","7. main menu","8. banner")
                 row("-1 Exit\n")
             }
         }
         t.println(table)
+    }
+
+    fun reader() {
+        t.println(File("/home/shift/dev/IdeaProjects-Bak/kotlin/src/main/resources/direwolf.md").readText())
     }
 
     fun addPlacemarkData(placemark : PlacemarkModel) : Boolean {

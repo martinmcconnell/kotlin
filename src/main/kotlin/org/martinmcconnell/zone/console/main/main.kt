@@ -1,7 +1,7 @@
-package org.setu.zone.console.main
+package org.martinmcconnell.zone.console.main
 
 import mu.KotlinLogging
-import org.setu.zone.console.controllers.PlacemarkController
+import org.martinmcconnell.zone.console.controllers.PlacemarkController
 
 private val logger = KotlinLogging.logger {}
 private val control = PlacemarkController()
