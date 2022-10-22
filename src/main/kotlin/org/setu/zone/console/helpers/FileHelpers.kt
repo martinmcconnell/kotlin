@@ -1,4 +1,4 @@
-package org.setu.placemark.console.helpers
+package org.setu.zone.console.helpers
 
 import mu.KotlinLogging
 import java.io.*

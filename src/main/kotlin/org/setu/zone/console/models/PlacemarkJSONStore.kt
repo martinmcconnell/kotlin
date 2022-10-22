@@ -1,16 +1,19 @@
-package org.setu.placemark.console.models
+package org.setu.zone.console.models
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import mu.KotlinLogging
 
-import org.setu.placemark.console.helpers.*
+import org.setu.zone.console.helpers.*
+import org.setu.zone.console.helpers.exists
+import org.setu.zone.console.helpers.read
+import org.setu.zone.console.helpers.write
 import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
-val JSON_FILE = "placemarks.json"
+val JSON_FILE = "file-list.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<java.util.ArrayList<PlacemarkModel>>() {}.type
 

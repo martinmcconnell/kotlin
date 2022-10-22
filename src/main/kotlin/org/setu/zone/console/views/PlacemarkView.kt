@@ -1,4 +1,4 @@
-package org.setu.placemark.console.views
+package org.setu.zone.console.views
 
 import com.github.ajalt.mordant.animation.progressAnimation
 import com.github.ajalt.mordant.rendering.BorderType
@@ -8,8 +8,8 @@ import com.github.ajalt.mordant.table.Borders
 import com.github.ajalt.mordant.table.table
 import com.github.ajalt.mordant.terminal.Terminal
 import com.github.ajalt.mordant.widgets.Spinner
-import org.setu.placemark.console.models.PlacemarkJSONStore
-import org.setu.placemark.console.models.PlacemarkModel
+import org.setu.zone.console.models.PlacemarkJSONStore
+import org.setu.zone.console.models.PlacemarkModel
 
 
 class PlacemarkView {

@@ -1,10 +1,10 @@
-package org.setu.placemark.console.controllers
+package org.setu.zone.console.controllers
 
 import mu.KotlinLogging
-import org.setu.placemark.console.models.PlacemarkJSONStore
-import org.setu.placemark.console.models.PlacemarkMemStore
-import org.setu.placemark.console.models.PlacemarkModel
-import org.setu.placemark.console.views.PlacemarkView
+import org.setu.zone.console.models.PlacemarkJSONStore
+import org.setu.zone.console.models.PlacemarkMemStore
+import org.setu.zone.console.models.PlacemarkModel
+import org.setu.zone.console.views.PlacemarkView
 
 class PlacemarkController {
     val placemarks = PlacemarkJSONStore()

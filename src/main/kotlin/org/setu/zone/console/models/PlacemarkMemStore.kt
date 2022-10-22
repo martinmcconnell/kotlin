@@ -1,4 +1,4 @@
-package org.setu.placemark.console.models
+package org.setu.zone.console.models
 
 import mu.KotlinLogging
 
