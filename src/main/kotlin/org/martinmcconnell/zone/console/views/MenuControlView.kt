@@ -8,12 +8,12 @@ import com.github.ajalt.mordant.table.Borders
 import com.github.ajalt.mordant.table.table
 import com.github.ajalt.mordant.terminal.Terminal
 import com.github.ajalt.mordant.widgets.Spinner
-import org.martinmcconnell.zone.console.models.PlacemarkJSONStore
-import org.martinmcconnell.zone.console.models.PlacemarkModel
+import org.martinmcconnell.zone.console.models.FileListJSONStore
+import org.martinmcconnell.zone.console.models.FileListModel
 import java.io.File
 
 
-class PlacemarkView {
+class MenuControlView {
     val t = Terminal()
 
     fun inputBox() :Int {
@@ -37,7 +37,10 @@ class PlacemarkView {
                     "▓▓▓▓   ▓▓▓▓   ▓▓▓▓   ▓▓   ▓▓   ▓         ▓\n" +
                     "▓▓▓   ▓▓▓▓▓▓   ▓▓   ▓▓▓   ▓▓   ▓  ▓▓▓▓▓▓▓▓\n" +
                     "█         ████   █████    ██   ███     ███\n" +
-                    "██████████████████████████████████████████\n")}
+                    "██████████████████████████████████████████\n" +
+                    "█ ▒█▀▄░▄▀▀░▄▀▀     ▀█▀░▀▄▀░▀█▀░░▒██▀░█▀▄ █\n" +
+                    "█ ░█▀▄▒▄██▒▄██    ░▒█▒░█▒█░▒█▒▒░░█▄▄▒█▄▀ █\n" +
+                    "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n")}
             body { row("Author: Martin McConnell \uD83D\uDE80 " )}
             body { row("20088021@mail.wit.ie")}
         })
@@ -63,38 +66,40 @@ class PlacemarkView {
     }
 
     fun reader() {
+        // hard coded markdown reader test
+        //
         t.println(File("/home/shift/dev/IdeaProjects-Bak/kotlin/src/main/resources/direwolf.md").readText())
     }
 
-    fun addPlacemarkData(placemark : PlacemarkModel) : Boolean {
+    fun addFileData(file : FileListModel) : Boolean {
         print("Enter a Title : ")
-        placemark.title = readLine()!!
+        file.title = readLine()!!
         print("Enter a description : ")
-        placemark.description = readLine()!!
+        file.description = readLine()!!
 
-        return placemark.title.isNotEmpty() && placemark.description.isNotEmpty()
+        return file.title.isNotEmpty() && file.description.isNotEmpty()
     }
 
-    fun updatePlacemarkData(placemark : PlacemarkModel) : Boolean {
+    fun updateFileListData(file : FileListModel) : Boolean {
 
         val tempTitle: String?
         val tempDescription: String?
 
-        if(placemark != null) {
-            print("Enter a new Title for [ $placemark.title ] : ")
+        if(file != null) {
+            print("Enter a new Title for [ $file.title ] : ")
             tempTitle = readLine()!!
-            print("Enter a new Description for [ $placemark.description ] : ")
+            print("Enter a new Description for [ $file.description ] : ")
             tempDescription = readLine()!!
             if (tempTitle.isEmpty() && tempDescription.isEmpty()) {
-                placemark.title = tempTitle
-                placemark.description = tempDescription
+                file.title = tempTitle
+                file.description = tempDescription
                 return true
             }
         }
         return false
     }
 
-    fun listPlacemarks(placemarks: PlacemarkJSONStore) {
+    fun listFiles(file: FileListJSONStore) {
         t.println(table {
             borderType = BorderType.SQUARE_DOUBLE_SECTION_SEPARATOR
             column(3) {
@@ -105,22 +110,22 @@ class PlacemarkView {
                 row("ID", "Title", "Description")
             }
             body {
-                for (placemark in placemarks.placemarks) {
-                    row("${placemark.id}", "${placemark.title}"," ${placemark.description}")
+                for (file in file.fileList) {
+                    row("${file.id}", "${file.title}"," ${file.description}")
                 }
             }
         })
     }
 
-    fun showPlacemark(aPlacemark: PlacemarkModel) {
-        if(aPlacemark != null)
+    fun showFileDetails(aFile: FileListModel) {
+        if(aFile != null)
             t.println(table {
                 header { row("Placemark Details") }
-                body { row("Title : ${aPlacemark.title}") }
-                body { row("Description : ${aPlacemark.description}") }
+                body { row("Title : ${aFile.title}") }
+                body { row("Description : ${aFile.description}") }
             })
         else
-            t.println(TextColors.red("Placemark Not Found..."))
+            t.println(TextColors.red("File Not Found..."))
 
     }
 
