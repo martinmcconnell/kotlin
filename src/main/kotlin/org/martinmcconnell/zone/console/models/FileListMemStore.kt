@@ -9,25 +9,25 @@ internal fun getId(): Long {
     return lastId++
 }
 
-class PlacemarkMemStore : PlacemarkStore {
-    val placemarks = ArrayList<PlacemarkModel>()
+class FileListMemStore : FileListStore {
+    val placemarks = ArrayList<FileListModel>()
 
-    override fun findAll(): List<PlacemarkModel> {
+    override fun findAll(): List<FileListModel> {
         return placemarks
     }
 
-    override fun findOne(id: Long): PlacemarkModel? {
-        var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == id }
+    override fun findOne(id: Long): FileListModel? {
+        var foundPlacemark: FileListModel? = placemarks.find { p -> p.id == id }
         return foundPlacemark
     }
 
-    override fun create(placemark: PlacemarkModel) {
+    override fun create(placemark: FileListModel) {
         placemark.id = getId()
         placemarks.add(placemark)
         logAll()
     }
 
-    override fun update(placemark: PlacemarkModel) {
+    override fun update(placemark: FileListModel) {
         var foundPlacemark = findOne(placemark.id!!)
         if (foundPlacemark != null) {
             foundPlacemark.title = placemark.title
@@ -35,7 +35,7 @@ class PlacemarkMemStore : PlacemarkStore {
         }
     }
 
-    override fun delete(placemark: PlacemarkModel) {
+    override fun delete(placemark: FileListModel) {
         placemarks.remove(placemark)
     }
 

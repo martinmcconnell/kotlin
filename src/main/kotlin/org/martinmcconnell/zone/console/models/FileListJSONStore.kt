@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import mu.KotlinLogging
 
-import org.setu.zone.console.helpers.*
 import org.martinmcconnell.zone.console.helpers.exists
 import org.martinmcconnell.zone.console.helpers.read
 import org.martinmcconnell.zone.console.helpers.write
@@ -15,15 +14,15 @@ private val logger = KotlinLogging.logger {}
 
 val JSON_FILE = "file-list.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
-val listType = object : TypeToken<java.util.ArrayList<PlacemarkModel>>() {}.type
+val listType = object : TypeToken<java.util.ArrayList<FileListModel>>() {}.type
 
 fun generateRandomId(): Long {
     return Random().nextLong()
 }
 
-class PlacemarkJSONStore : PlacemarkStore {
+class FileListJSONStore : FileListStore {
 
-    var placemarks = mutableListOf<PlacemarkModel>()
+    var fileList = mutableListOf<FileListModel>()
 
     init {
         if (exists(JSON_FILE)) {
@@ -32,22 +31,22 @@ class PlacemarkJSONStore : PlacemarkStore {
     }
 
 
-    override fun findAll(): MutableList<PlacemarkModel> {
-        return placemarks
+    override fun findAll(): MutableList<FileListModel> {
+        return fileList
     }
 
-    override fun findOne(id: Long) : PlacemarkModel? {
-        var foundPlacemark: PlacemarkModel? = placemarks.find { p -> p.id == id }
+    override fun findOne(id: Long) : FileListModel? {
+        var foundPlacemark: FileListModel? = fileList.find { p -> p.id == id }
         return foundPlacemark
     }
 
-    override fun create(placemark: PlacemarkModel) {
+    override fun create(placemark: FileListModel) {
         placemark.id = generateRandomId()
-        placemarks.add(placemark)
+        fileList.add(placemark)
         serialize()
     }
 
-    override fun update(placemark: PlacemarkModel) {
+    override fun update(placemark: FileListModel) {
         var foundPlacemark = findOne(placemark.id!!)
         if (foundPlacemark != null) {
             foundPlacemark.title = placemark.title
@@ -56,22 +55,22 @@ class PlacemarkJSONStore : PlacemarkStore {
         serialize()
     }
 
-    override fun delete(placemark: PlacemarkModel) {
-        placemarks.remove(placemark)
+    override fun delete(placemark: FileListModel) {
+        fileList.remove(placemark)
         serialize()
     }
 
     internal fun logAll() {
-        placemarks.forEach { logger.info("${it}") }
+        fileList.forEach { logger.info("${it}") }
     }
 
     private fun serialize() {
-        val jsonString = gsonBuilder.toJson(placemarks, listType)
+        val jsonString = gsonBuilder.toJson(fileList, listType)
         write(JSON_FILE, jsonString)
     }
 
     private fun deserialize() {
         val jsonString = read(JSON_FILE)
-        placemarks = Gson().fromJson(jsonString, listType)
+        fileList = Gson().fromJson(jsonString, listType)
     }
 }
