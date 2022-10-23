@@ -21,8 +21,6 @@ class MenuController {
 
     fun load() {return menuControlView.hackingThePlanet()}
 
-    fun reader() { return menuControlView.reader()}
-
     fun banner() {return menuControlView.banner()}
 
     fun start() {
@@ -37,7 +35,7 @@ class MenuController {
                 3 -> delete()
                 4 -> list()
                 5 -> load()
-                6 -> reader()
+                6 -> read()
                 7 -> menu()
                 8 -> banner()
                 -1 -> println("Exiting....")
@@ -91,6 +89,18 @@ class MenuController {
         }
         else
             println("File Not Deleted...")
+    }
+
+    fun read() {
+        menuControlView.listFiles(files)
+        var searchId = menuControlView.getId()
+        val aFile = search(searchId)
+
+        if(aFile != null) {
+            menuControlView.reader(aFile)
+        }
+        else
+            println("File Not Found...")
     }
 
     fun search() {

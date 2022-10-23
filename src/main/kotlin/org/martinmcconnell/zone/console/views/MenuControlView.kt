@@ -18,7 +18,7 @@ class MenuControlView {
 
     fun inputBox() :Int {
         var option : Int = 0
-        val input = t.prompt("Enter an Integer ")
+        val input = t.prompt("Enter a Menu Option Number: ")
         // Read up on print formatting to get input into the row() box
         if (input != null) {
             option = if (input.toIntOrNull() != null && !input.isEmpty()) input.toInt()
@@ -65,10 +65,14 @@ class MenuControlView {
         t.println(table)
     }
 
-    fun reader() {
-        // hard coded markdown reader test
-        //
-        t.println(File("/home/shift/dev/IdeaProjects-Bak/kotlin/src/main/resources/direwolf.md").readText())
+    fun reader(file: FileListModel?) {
+//        print("Select a file to read : ")
+//        val input = readLine()!!
+//        val file = File(input)
+//        println("${file.path}")
+        if (file != null) {
+            t.println(File("${file.path}").readText())
+        }
     }
 
     fun addFileData(file : FileListModel) : Boolean {
@@ -76,6 +80,8 @@ class MenuControlView {
         file.title = readLine()!!
         print("Enter a description : ")
         file.description = readLine()!!
+        print("File location (requires exact path) : ")
+        file.path = readLine()!!
 
         return file.title.isNotEmpty() && file.description.isNotEmpty()
     }
@@ -84,15 +90,19 @@ class MenuControlView {
 
         val tempTitle: String?
         val tempDescription: String?
+        val tempPath: String?
 
         if(file != null) {
             print("Enter a new Title for [ $file.title ] : ")
             tempTitle = readLine()!!
             print("Enter a new Description for [ $file.description ] : ")
             tempDescription = readLine()!!
-            if (tempTitle.isEmpty() && tempDescription.isEmpty()) {
+            print("Where is the updated location of the file : ")
+            tempPath = readLine()!!
+            if (tempTitle.isEmpty() && tempDescription.isEmpty() && tempPath.isEmpty()) {
                 file.title = tempTitle
                 file.description = tempDescription
+                file.path = tempPath
                 return true
             }
         }
@@ -102,16 +112,16 @@ class MenuControlView {
     fun listFiles(file: FileListJSONStore) {
         t.println(table {
             borderType = BorderType.SQUARE_DOUBLE_SECTION_SEPARATOR
-            column(3) {
+            column(4) {
                 cellBorders = Borders.ALL
             }
             header {
                 align = TextAlign.CENTER
-                row("ID", "Title", "Description")
+                row("ID", "Title", "Description", "Location")
             }
             body {
                 for (file in file.fileList) {
-                    row("${file.id}", "${file.title}"," ${file.description}")
+                    row("${file.id}", "${file.title}"," ${file.description}", "${file.path}")
                 }
             }
         })
@@ -120,19 +130,19 @@ class MenuControlView {
     fun showFileDetails(aFile: FileListModel) {
         if(aFile != null)
             t.println(table {
-                header { row("Placemark Details") }
+                header { row("File Details") }
                 body { row("Title : ${aFile.title}") }
                 body { row("Description : ${aFile.description}") }
+                body { row("File path: ${aFile.path}") }
             })
         else
             t.println(TextColors.red("File Not Found..."))
-
     }
 
     fun getId() : Long {
         var strId : String? // String to hold user input
         var searchId : Long // Long to hold converted id
-        print("Enter id to Search/Update : ")
+        print("Enter id of file : ")
         strId = readLine()!!
         searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
             strId.toLong()
@@ -161,5 +171,4 @@ class MenuControlView {
         }
         progress.stop()
     }
-
 }

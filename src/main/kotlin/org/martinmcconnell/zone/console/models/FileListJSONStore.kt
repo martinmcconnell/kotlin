@@ -30,14 +30,13 @@ class FileListJSONStore : FileListStore {
         }
     }
 
-
     override fun findAll(): MutableList<FileListModel> {
         return fileList
     }
 
     override fun findOne(id: Long) : FileListModel? {
-        var foundPlacemark: FileListModel? = fileList.find { p -> p.id == id }
-        return foundPlacemark
+        var foundFile: FileListModel? = fileList.find { p -> p.id == id }
+        return foundFile
     }
 
     override fun create(placemark: FileListModel) {
@@ -47,16 +46,16 @@ class FileListJSONStore : FileListStore {
     }
 
     override fun update(placemark: FileListModel) {
-        var foundPlacemark = findOne(placemark.id!!)
-        if (foundPlacemark != null) {
-            foundPlacemark.title = placemark.title
-            foundPlacemark.description = placemark.description
+        var foundFile = findOne(placemark.id!!)
+        if (foundFile != null) {
+            foundFile.title = placemark.title
+            foundFile.description = placemark.description
         }
         serialize()
     }
 
-    override fun delete(placemark: FileListModel) {
-        fileList.remove(placemark)
+    override fun delete(file: FileListModel) {
+        fileList.remove(file)
         serialize()
     }
 
